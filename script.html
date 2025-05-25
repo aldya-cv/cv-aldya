@@ -1,0 +1,136 @@
+// Data CV
+const cvData = {
+    nama: "John Doe",
+    profesi: "Web Developer",
+    tentangSaya: "Saya seorang Web Developer dengan pengalaman 5 tahun dalam membangun aplikasi web modern. Spesialisasi saya adalah dalam pengembangan front-end dengan React dan Vue.js, serta back-end dengan Node.js. Saya sangat antusias dengan teknologi terbaru dan selalu berusaha untuk meningkatkan keterampilan saya.",
+    umur: 28,
+    alamat: "Jl. Contoh No. 123, Jakarta, Indonesia",
+    telepon: "+62 812-3456-7890",
+    email: "john.doe@example.com",
+    keahlian: ["HTML", "CSS", "JavaScript", "React", "Vue.js", "Node.js", "Express", "MongoDB", "Git"],
+    pengalaman: [
+        {
+            tanggal: "2020 - Sekarang",
+            judul: "Senior Web Developer",
+            subjudul: "PT Teknologi Maju",
+            deskripsi: "Mengembangkan dan memelihara aplikasi web untuk klien perusahaan. Memimpin tim pengembang junior dan berkolaborasi dengan tim desain untuk menciptakan pengalaman pengguna yang optimal."
+        },
+        {
+            tanggal: "2018 - 2020",
+            judul: "Web Developer",
+            subjudul: "CV Digital Kreatif",
+            deskripsi: "Membangun website e-commerce dan landing page untuk berbagai klien. Menerapkan teknologi terbaru untuk meningkatkan performa dan keamanan aplikasi."
+        },
+        {
+            tanggal: "2017 - 2018",
+            judul: "Junior Web Developer",
+            subjudul: "Freelance",
+            deskripsi: "Mengerjakan berbagai proyek freelance untuk klien kecil dan menengah. Belajar berbagai teknologi web dan meningkatkan keterampilan pengembangan."
+        }
+    ],
+    pendidikan: [
+        {
+            tanggal: "2013 - 2017",
+            judul: "Sarjana Teknik Informatika",
+            subjudul: "Universitas Contoh",
+            deskripsi: "Lulus dengan predikat cum laude. Fokus pada pengembangan web dan ilmu data."
+        },
+        {
+            tanggal: "2010 - 2013",
+            judul: "SMA Negeri Contoh",
+            subjudul: "Jurusan IPA",
+            deskripsi: "Aktif dalam kegiatan ekstrakurikuler programming dan robotika."
+        }
+    ],
+    sosialMedia: {
+        linkedin: "https://linkedin.com/in/johndoe",
+        github: "https://github.com/johndoe",
+        instagram: "https://instagram.com/johndoe"
+    }
+};
+
+// Fungsi untuk mengisi data CV
+function fillCVData() {
+    // Informasi dasar
+    document.getElementById('nama').textContent = cvData.nama;
+    document.getElementById('profesi').textContent = cvData.profesi;
+    document.getElementById('tentang-saya').textContent = cvData.tentangSaya;
+    document.getElementById('umur').textContent = cvData.umur;
+    document.getElementById('alamat').textContent = cvData.alamat;
+    document.getElementById('telepon').textContent = cvData.telepon;
+    document.getElementById('email').textContent = cvData.email;
+    
+    // Keahlian
+    const skillsContainer = document.getElementById('skills-container');
+    cvData.keahlian.forEach(skill => {
+        const skillElement = document.createElement('div');
+        skillElement.className = 'skill';
+        skillElement.textContent = skill;
+        skillsContainer.appendChild(skillElement);
+    });
+    
+    // Pengalaman
+    const experienceContainer = document.getElementById('experience-container');
+    cvData.pengalaman.forEach(exp => {
+        const expElement = document.createElement('div');
+        expElement.className = 'timeline-item';
+        expElement.innerHTML = `
+            <div class="timeline-date">${exp.tanggal}</div>
+            <div class="timeline-title">${exp.judul}</div>
+            <div class="timeline-subtitle">${exp.subjudul}</div>
+            <div class="timeline-description">${exp.deskripsi}</div>
+        `;
+        experienceContainer.appendChild(expElement);
+    });
+    
+    // Pendidikan
+    const educationContainer = document.getElementById('education-container');
+    cvData.pendidikan.forEach(edu => {
+        const eduElement = document.createElement('div');
+        eduElement.className = 'timeline-item';
+        eduElement.innerHTML = `
+            <div class="timeline-date">${edu.tanggal}</div>
+            <div class="timeline-title">${edu.judul}</div>
+            <div class="timeline-subtitle">${edu.subjudul}</div>
+            <div class="timeline-description">${edu.deskripsi}</div>
+        `;
+        educationContainer.appendChild(eduElement);
+    });
+    
+    // Sosial Media
+    document.getElementById('linkedin').href = cvData.sosialMedia.linkedin;
+    document.getElementById('github').href = cvData.sosialMedia.github;
+    document.getElementById('instagram').href = cvData.sosialMedia.instagram;
+    
+    // Tahun saat ini
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+}
+
+// Fungsi untuk toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const themeIcon = document.querySelector('#theme-toggle i');
+    if (document.body.classList.contains('dark-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Event listener untuk tombol theme toggle
+document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+
+// Cek preferensi theme dari localStorage
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    const themeIcon = document.querySelector('#theme-toggle i');
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+}
+
+// Panggil fungsi untuk mengisi data CV saat halaman dimuat
+document.addEventListener('DOMContentLoaded', fillCVData);
